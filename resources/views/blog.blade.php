@@ -36,11 +36,11 @@ Details
                                     data-bs-toggle="dropdown"></i>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     <li><a class="dropdown-item text-dark"
-                                            href="{{route('blog.edit.view',$blog->id)}}">Edit</a>
+                                            href="{{route('blog.edit',$blog->id)}}">Edit</a>
                                     </li>
                                     <li>
                                         <form class="dropdown-item d-inline-block m-0 p-2"
-                                            action="{{route('blog.delete',$blog->id)}}" method="POST">
+                                            action="{{route('blog.destroy',$blog->id)}}" method="POST">
                                             @csrf
                                             @method('delete')
                                             <button class="text-danger m-0 bg-transparent border-0"
@@ -52,6 +52,7 @@ Details
                         </div>
                     </div>
                     <hr>
+                    {{-- <img src="{{asset('storage/'.$blog->image)}}" class="img-fluid mb-3" alt="blog-image"> --}}
                     <div class="card-text text-black-50 mb-3">{{$blog->body}}</div>
                 </div>
             </div>

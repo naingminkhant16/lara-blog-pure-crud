@@ -18,19 +18,42 @@ Edit
                     </div>
                 </div>
             </div>
+            @if ($errors->any())
+            <div class="alert alert-danger mt-3">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $err)
+                    <li>{{$err}}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
             <div class="card mt-4">
                 <div class="card-body">
-                    <form action="{{route('blog.edit',$blog->id)}}" method="POST">
+                    <form action="{{route('blog.update',$blog->id)}}" method="POST">
                         @csrf
                         @method('put')
                         <div class="mb-3">
                             <label class="form-label">Title</label>
-                            <input type="text" class="form-control" value="{{$blog->title}}" name="title">
+                            <input type="text" class="form-control @error('title')
+                            is-invalid
+                            @enderror" value="{{$blog->title}}" name="title">
+                            @error('title')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Body</label>
-                            <textarea name="body" rows="10" class="form-control">{{$blog->body}}</textarea>
+                            <textarea name="body" rows="10" class="form-control @error('body')
+                            is-invalid
+                            @enderror">{{$blog->body}}</textarea>
+                            @error('body')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
                         </div>
+                        {{-- <div class="mb-3">
+                            <label class="form-label">Image</label>
+                            <input type="file" class="form-control" name="image" value="{{$blog->image}}">
+                        </div> --}}
                         <div class="mb-3 text-end">
                             <button type="submit" class="btn btn-dark">Update</button>
                         </div>

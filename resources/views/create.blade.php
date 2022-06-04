@@ -18,18 +18,42 @@ Create
                     </div>
                 </div>
             </div>
-            <div class="card mt-4">
+            @if ($errors->any())
+            <div class="alert alert-danger mt-3">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $err)
+                    <li>{{$err}}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+            <div class="card mt-3">
                 <div class="card-body">
-                    <form action="{{route('blog.create')}}" method="POST">
+                    <form action="{{route('blog.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label class="form-label">Title</label>
-                            <input type="text" class="form-control" name="title">
+                            <input type="text" class="form-control @error('title')
+                                is-invalid
+                            @enderror" name="title">
+                            @error('title')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Body</label>
-                            <textarea name="body" rows="10" class="form-control"></textarea>
+                            <textarea name="body" rows="10" class="form-control 
+                             @error('body')
+                              is-invalid
+                             @enderror"></textarea>
+                            @error('body')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
                         </div>
+                        {{-- <div class="mb-3">
+                            <label class="form-label">Image</label>
+                            <input type="file" class="form-control" name="image">
+                        </div> --}}
                         <div class="mb-3 text-end">
                             <button type="submit" class="btn btn-dark">Upload</button>
                         </div>
